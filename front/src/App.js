@@ -7,7 +7,7 @@ import User from './User';
 import ThreadMessages from './ThreadMessages';
 import InputName from './InputName';
 import InputMessage from './InputMessage';
-
+import axios from 'axios';
 
 
 function App() {
@@ -21,7 +21,9 @@ function App() {
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
 
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState("");
+  const [searchKey, setSearchKey] = useState("");
+  const [artists, setArtists] = useState([]);
 
   useEffect(() => {
     const newSocket = io("https://whispering-chamber-09886.herokuapp.com/");
@@ -42,7 +44,17 @@ function App() {
 
     setToken(token)
 
-  }, [])
+    const { data } = axios.get("https://api.spotify.com/v1/playlists/1RZtOFKYBUajvP0bbBNb7a/tracks", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json'
+      },
+    })
+    .then((response) => {
+      console.log(response);
+    })
+  }, []);
+  
 
   const logout = () => {
     setToken("")
@@ -111,6 +123,12 @@ function App() {
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
           to Spotify</a>
         : <button onClick={logout}>Logout</button>}
+      {/* {artists.map(artist => (
+      <div key={artist.id}>
+        {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt="" /> : <div>No Image</div>}
+        {artist.name}
+      </div>
+      ))} */}
       {socket ? (
         <>
           <ThreadMessages messages={messages} />
