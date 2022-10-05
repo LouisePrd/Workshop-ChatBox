@@ -1,16 +1,17 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-function User({users}) {
+function User({ users }) {
 
   return (
-  <div className="user-list">
-  {users.sort((a, b) => a.name - b.name).map((user) => (
-      <span key={user.id} className="user">
-        {user.name}
-      </span>
-    ))}
-</div>
-);
+    <div className="user-list">
+      <h2>Thread Users</h2>
+      {users.sort((a, b) => a.name - b.name).map((user) => (
+        <span key={user.id} className="user">
+          {user.name}<br />
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export default User;
