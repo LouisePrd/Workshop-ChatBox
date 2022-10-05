@@ -8,6 +8,8 @@ import ThreadMessages from './ThreadMessages';
 import InputName from './InputName';
 import InputMessage from './InputMessage';
 
+
+
 function App() {
 
   const [messages, setMessages] = useState([]);
@@ -78,12 +80,14 @@ function App() {
     <div className="App">
       <InputName socket={socket} />
       <InputMessage socket={socket} />
-      {socket ? (
-        <>
-          <ThreadMessages messages={messages} />
-          <User users={users} /></>)
-        :
-        (<div>Not connected</div>)}
+      <div className="Conteneur">
+        {socket ? (
+          <>
+            <ThreadMessages messages={messages} />
+            <User users={users} /></>)
+          :
+          (<div>Not connected</div>)}
+      </div>
     </div>
   );
 }
