@@ -22,8 +22,7 @@ function App() {
   const RESPONSE_TYPE = "token"
 
   const [token, setToken] = useState("");
-  const [searchKey, setSearchKey] = useState("");
-  const [artists, setArtists] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
 
   useEffect(() => {
     const newSocket = io("https://whispering-chamber-09886.herokuapp.com/");
@@ -32,19 +31,30 @@ function App() {
   }, [setSocket]);
 
   useEffect(() => {
-    const hash = window.location.hash
-    let token = window.localStorage.getItem("token")
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
 
     if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
 
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
     }
 
-    setToken(token)
+    setToken(token);
 
-    const { data } = axios.get("https://api.spotify.com/v1/playlists/1RZtOFKYBUajvP0bbBNb7a/tracks", {
+    const { data } = axios.get("https://api.spotify.com/v1/playlists/2iYIoic1SsHMh4FLM9lEMU/tracks", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json'
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      {response.data.items ? setPlaylist(response.data.items) : console.log("no items")}
+    });
+
+    const { userData } = axios.get("https://api.spotify.com/v1/users/31zbcrw3soubvcdiyaljy5zen2wm", {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-type': 'application/json'
@@ -117,18 +127,21 @@ function App() {
 
   return (
     <div className="App">
-      <InputName socket={socket} />
-      <InputMessage socket={socket} />
+      <div>
+
+      </div>
+      <div>
+        <InputMessage socket={socket} />
+      </div>
+      <div>
+        <InputName socket={socket} />
+      </div>
+      
+      
       {!token ?
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
           to Spotify</a>
         : <button onClick={logout}>Logout</button>}
-      {/* {artists.map(artist => (
-      <div key={artist.id}>
-        {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt="" /> : <div>No Image</div>}
-        {artist.name}
-      </div>
-      ))} */}
       {socket ? (
         <>
           <ThreadMessages messages={messages} />
