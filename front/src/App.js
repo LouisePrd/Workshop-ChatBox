@@ -133,6 +133,7 @@ function App() {
 
       </div>
       <div className='center'>
+        <div className='headerMid'>
         {socket ? (
           <>
             <ThreadMessages messages={messages} />
@@ -140,6 +141,7 @@ function App() {
           :
           (<div>Not connected</div>)}
         <InputMessage socket={socket} />
+        </div>
       </div>
 
       <div className='right'>

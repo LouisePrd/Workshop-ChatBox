@@ -1,5 +1,13 @@
+@font-face {
+	font-family: 'Bold';
+	src: url('') format('ttf');
+}
+
 .App {
   /* text-align: center; */
+  background-image: url(assets/background-chatbox.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .App-logo {
@@ -44,27 +52,32 @@
 
 .left {
   width: 20%;
-  background-color: #282c34;
+  /* background-color: #282c34; */
 }
 
+
+/* Centre */
 .center {
   width: 60%;
-  background-color: #a42626;
+  
 }
 
-.right {
-  width: 20%;
-  background-color: #bf3dad;
+.headerMid {
+  background-color: rgb(101, 188, 255, 0.5);
+  width: 100%;
+  height: auto;
+  margin-top: 1% ;
 }
+
+
+
+/* Droite */
 
 .small-profile {
   width: 80%;
-  margin-top: 8%;
-  padding-top: 3%;
   padding-bottom: 3%;
   margin-right: 10%;
   margin-left: 10%;
-  background-color: #439bff;
   border-radius: 10px 45px 45px 0px;
   display: flex;
 }
@@ -80,31 +93,22 @@
 }
 
 .user-list {
-  background-color: #439bff;
-  margin-right: 10%;
-  margin-left: 10%;
   border-radius: 0px 45px 45px 0px;
 }
 
 .right {
-  background-image: url(assets/background-chatbox.png);
-}
-
-
-.right {
   width: 20%;
-  background-color: #bf3dad;
+  /* background-image: url(assets/background-chatbox.png); */
 }
-
 
 .partie-haute {
   width: 80%;
-  margin-top: 8%;
+  margin-top: 6%;
   padding-top: 3%;
   padding-bottom: 3%;
   margin-right: 10%;
   margin-left: 10%;
-  background-color: #439bff;
+  background-color: rgb(101, 188, 255, 0.5);
   border-radius: 10px 45px 45px 0px;
 }
 
@@ -115,7 +119,6 @@
 .profile-picture {
   width: 4.8em;
   border-radius: 50%;
-
 }
 
 .profile-name {
@@ -123,13 +126,9 @@
 }
 
 .user-list {
-  background-color: #439bff;
+  background-color: rgb(101, 188, 255, 0.5);
   margin-right: 10%;
   margin-left: 10%;
-}
-
-.right {
-  background-image: url(assets/background-chatbox.png);
 }
 
 .input-name {
@@ -165,18 +164,16 @@
 }
 
 .icon-user {
-  width: 2em;
-  height: 2em;
-  margin-top: 22px;
+  width: 1.8em;
+  height: 1.8em;
+  margin-top: 20px;
   margin-left: 6px;
   margin-right: 6px;
 }
 
 .partie-basse {
-  margin-top:7%;
-  padding-top: 3%;
+  margin-top:6%;
   color: white;
-  border: 2px solid red;
 }
 
 .test{
@@ -184,12 +181,17 @@
 }
 
 .online {
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .user {
   font-size: 18px;
   margin-left: 11px;
-  /* font-family: Akzidenz-Grotesk Pro; */
-  font-weight: bold;
 }
+
+.users{
+  height:350px;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+
