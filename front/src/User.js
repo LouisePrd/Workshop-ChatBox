@@ -5,8 +5,10 @@ function User({ users }) {
 
   return (
     <div className="user-list">
-      <img className="icon-user" src={iconUser} alt="icon-user" />
-      <h2>ONLINE</h2>
+      <div className="test">
+        <img className="icon-user" src={iconUser} alt="icon-user" />
+        <h2 className="online">ONLINE</h2>
+      </div>
       {users.sort((a, b) => a.name - b.name).map((user) => (
         <span key={user.id} className="user">
           {user.name}<br />

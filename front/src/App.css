@@ -165,12 +165,31 @@
 }
 
 .icon-user {
-  width: 2.2em;
-  
+  width: 2em;
+  height: 2em;
+  margin-top: 22px;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .partie-basse {
   margin-top:7%;
   padding-top: 3%;
   color: white;
+  border: 2px solid red;
+}
+
+.test{
+  display: flex;
+}
+
+.online {
+  font-size: 25px;
+}
+
+.user {
+  font-size: 18px;
+  margin-left: 11px;
+  /* font-family: Akzidenz-Grotesk Pro; */
+  font-weight: bold;
 }
