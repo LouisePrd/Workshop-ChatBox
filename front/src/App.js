@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState, useRef } from 'react';
+import cd from './images/cd.png';
 import './App.css';
 import { io } from 'socket.io-client';
 
@@ -8,7 +8,9 @@ import ThreadMessages from './ThreadMessages';
 import InputName from './InputName';
 import InputMessage from './InputMessage';
 import axios from 'axios';
-
+import ProgressBar from './ProgressBar';
+import Playlist from './Playlist';
+import Player from './Player';
 
 function App() {
 
@@ -24,6 +26,12 @@ function App() {
 
   const [token, setToken] = useState("");
   const [playlist, setPlaylist] = useState([]);
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const [showPlaylist2, setShowPlaylist2] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const player = useRef(null);
 
   useEffect(() => {
     const newSocket = io("https://whispering-chamber-09886.herokuapp.com/");
@@ -125,10 +133,55 @@ function App() {
     }
   }, [socket]);
 
+  const url = "http://streaming.tdiradio.com:8000/house.mp3";
+  const [audio] = useState(new Audio(url));
+  const [playing, setPlaying] = useState(false);
+
+  const play = () => {
+    setPlaying(true);
+    console.log(audio);
+    audio.play();
+  }
+
+  const pause = () => {
+    setPlaying(false);
+    audio.pause();
+  }
+
+  const childToParent = (childdata) => {
+    setSelectedItem(childdata);
+    console.log(childdata);
+  }
+
+
   return (
     <div className="App Conteneur">
       <div className='left'>
-
+        <div className='cdContainer'>
+          <img className='cd App-logo' src={cd} alt="cd" />
+          <div className='cdContent'>
+          <audio id="player" ref={player} src="http://streaming.tdiradio.com:8000/house.mp3" onTimeUpdate={() => {let duration = player.current.duration; let ct = player.current.currentTime; setProgress(Math.floor((ct * 100) / duration))}}></audio>
+            <img className='cdContentImg' src={playlist[0] ? playlist[0].track.album.images[0].url : ""} alt="cd" />
+            <div className='cdContentText'>
+              <p className='cdContentTextp'>{playlist[0] ? playlist[0].track.name : ""}</p>
+              <p className='cdContentTextp'>{playlist[0] ? playlist[0].track.artists[0].name : ""}</p>
+              <ProgressBar completed={progress} />
+            </div>
+          </div>
+        </div>
+        <div className='playlistContainer'>
+          <div className='playlistNbutton'>
+            <button className={`playlistButton ${showPlaylist ? "active" : ""}`} onClick={() => { setShowPlaylist(!showPlaylist); setShowPlaylist2(false) }}>Playlist</button>
+            {showPlaylist && <Playlist playlist={playlist} childToParent={childToParent} setSelectedItem={setSelectedItem}/>}
+          </div>
+          <div className='playlistNbutton'>
+            <button className={`playlistButton ${showPlaylist2 ? "active" : ""}`} onClick={() => { setShowPlaylist2(!showPlaylist2); setShowPlaylist(false) }}>Ma Playlist</button>
+            {showPlaylist2 && <Playlist playlist={playlist} />}
+          </div>
+        </div>
+        {/* <Player url={"http://streaming.tdiradio.com:8000/house.mp3"} /> */}
+        <button onClick={() => {play()}}>Play</button>
+        <button onClick={() => {pause()}}>Pause</button>
       </div>
       <div className='center'>
         {socket ? (
