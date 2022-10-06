@@ -13,17 +13,17 @@ const InputName = ({ socket, spotifyUser }) => {
 
     return (
         <>
+        <span className="displayName"><b></b>{isName}</span>
         <form onSubmit={usernameForm}>
-          <input
+          <input className="input-name"
             autoFocus
             value={value}
-            placeholder="Username..."
+            placeholder="Username"
             onChange={(e) => {
               setValue(e.currentTarget.value);
             }}
           />
         </form>
-        <span><b>Your username : </b>{isName}</span>
         </>
       );
 };

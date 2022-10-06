@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
+import settings from './assets/settings.png';
+import img from './assets/img.png';
 import './App.css';
 import { io } from 'socket.io-client';
 
@@ -139,21 +141,40 @@ function App() {
           (<div>Not connected</div>)}
         <InputMessage socket={socket} />
       </div>
+
       <div className='right'>
-        <InputName socket={socket} spotifyUser={spotifyUser} />
-        {socket ? (
-          <>
-            <User users={users} />
-          </>)
-          :
-          (<div>Not connected</div>)}
+        <div className='partie-haute'>
+          <div className="small-profile">
+            <div className="profile">
+              {/* <img className="profile-picture" src={spotifyUser.images[0].url} alt="profile" /> */}
+            </div>
+            <div className="profile-name">
+              {/* <InputName socket={socket} spotifyUser={spotifyUser} /> */}
+              {!token ?
+                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
+                  to Spotify</a>
+                : <button onClick={logout}>Logout</button>}
+            </div>
+
+          </div>
+          <div className="tools">
+            <img className="settings-icon" src={settings} />
+            <img className="img-icon" src={img} />
+          </div>
+
+        </div>
+
+        <div className='partie-basse'>
+          {socket ? (
+            <>
+              <User users={users} />
+            </>)
+            :
+            (<div>Not connected</div>)}
+
+        </div>
+
       </div>
-
-
-      {/* {!token ?
-        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-          to Spotify</a>
-        : <button onClick={logout}>Logout</button>} */}
 
     </div>
   );

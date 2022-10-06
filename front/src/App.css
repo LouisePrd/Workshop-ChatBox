@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -55,4 +55,122 @@
 .right {
   width: 20%;
   background-color: #bf3dad;
+}
+
+.small-profile {
+  width: 80%;
+  margin-top: 8%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-right: 10%;
+  margin-left: 10%;
+  background-color: #439bff;
+  border-radius: 10px 45px 45px 0px;
+  display: flex;
+}
+
+.profile-picture {
+  width: 4.8em;
+  border-radius: 70%;
+  margin-left: 0.4em;
+}
+
+.profile-name {
+  margin-left: 10%;
+}
+
+.user-list {
+  background-color: #439bff;
+  margin-right: 10%;
+  margin-left: 10%;
+  border-radius: 0px 45px 45px 0px;
+}
+
+.right {
+  background-image: url(assets/background-chatbox.png);
+}
+
+
+.right {
+  width: 20%;
+  background-color: #bf3dad;
+}
+
+
+.partie-haute {
+  width: 80%;
+  margin-top: 8%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-right: 10%;
+  margin-left: 10%;
+  background-color: #439bff;
+  border-radius: 10px 45px 45px 0px;
+}
+
+.small-profile {
+  display: flex;
+}
+
+.profile-picture {
+  width: 4.8em;
+  border-radius: 50%;
+
+}
+
+.profile-name {
+  margin-left: 10%;
+}
+
+.user-list {
+  background-color: #439bff;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.right {
+  background-image: url(assets/background-chatbox.png);
+}
+
+.input-name {
+  background-color: #439bff;
+  color: white;
+  border: none;
+  font-size: 1em;
+  width: 80%;
+  font-style: italic;
+}
+
+.displayName {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
+
+.settings-icon {
+  border-radius: 48%;
+  background-color: #65bcff;
+  width: 2.3em;
+}
+
+.img-icon {
+  border-radius: 50%;
+  background-color: #65bcff;
+  width: 2.8em;
+  margin-left: 0.15em;
+}
+
+.tools {
+  margin-left: 3%;
+}
+
+.icon-user {
+  width: 2.2em;
+  
+}
+
+.partie-basse {
+  margin-top:7%;
+  padding-top: 3%;
+  color: white;
 }
