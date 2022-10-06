@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 
-const InputName = ({ socket }) => {
+const InputName = ({ socket, spotifyUser }) => {
     const [value, setValue] = useState("");
-    const [isName, setIsName] = useState(false);
+    const [isName, setIsName] = useState(spotifyUser?.display_name);
 
     const usernameForm = (e) => {
         e.preventDefault();

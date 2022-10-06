@@ -14,6 +14,7 @@ function App() {
 
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
+  const [spotifyUser, setSpotifyUser] = useState([]);
   const [socket, setSocket] = useState(null);
 
   const CLIENT_ID = "267dee8acb604afd81a5b1464a34b77a"
@@ -49,10 +50,10 @@ function App() {
         'Content-type': 'application/json'
       },
     })
-    .then((response) => {
-      console.log(response);
-      {response.data.items ? setPlaylist(response.data.items) : console.log("no items")}
-    });
+      .then((response) => {
+        console.log(response);
+        { response.data.items ? setPlaylist(response.data.items) : console.log("no items") }
+      });
 
     const { userData } = axios.get("https://api.spotify.com/v1/users/31zbcrw3soubvcdiyaljy5zen2wm", {
       headers: {
@@ -60,11 +61,13 @@ function App() {
         'Content-type': 'application/json'
       },
     })
-    .then((response) => {
-      console.log(response);
-    })
+      .then((response) => {
+        console.log(response);
+        { response.data ? setSpotifyUser(response.data) : console.log("no user") };
+        { spotifyUser ? console.log(spotifyUser) : console.log("no user") };
+      })
   }, []);
-  
+
 
   const logout = () => {
     setToken("")
@@ -122,32 +125,36 @@ function App() {
     }
   }, [socket]);
 
-  console.log(messages);
-  console.log(users);
-
   return (
-    <div className="App">
-      <div>
+    <div className="App Conteneur">
+      <div className='left'>
 
       </div>
-      <div>
+      <div className='center'>
+        {socket ? (
+          <>
+            <ThreadMessages messages={messages} />
+          </>)
+          :
+          (<div>Not connected</div>)}
         <InputMessage socket={socket} />
       </div>
-      <div>
-        <InputName socket={socket} />
+      <div className='right'>
+        <InputName socket={socket} spotifyUser={spotifyUser} />
+        {socket ? (
+          <>
+            <User users={users} />
+          </>)
+          :
+          (<div>Not connected</div>)}
       </div>
-      
-      
-      {!token ?
+
+
+      {/* {!token ?
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
           to Spotify</a>
-        : <button onClick={logout}>Logout</button>}
-      {socket ? (
-        <>
-          <ThreadMessages messages={messages} />
-          <User users={users} /></>)
-        :
-        (<div>Not connected</div>)}
+        : <button onClick={logout}>Logout</button>} */}
+
     </div>
   );
 }

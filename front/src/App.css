@@ -39,4 +39,20 @@
 
 .Conteneur {
   display: flex;
+  height: 100vh;
+}
+
+.left {
+  width: 20%;
+  background-color: #282c34;
+}
+
+.center {
+  width: 60%;
+  background-color: #a42626;
+}
+
+.right {
+  width: 20%;
+  background-color: #bf3dad;
 }
