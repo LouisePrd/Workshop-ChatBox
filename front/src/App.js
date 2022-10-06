@@ -134,13 +134,13 @@ function App() {
       </div>
       <div className='center'>
         <div className='headerMid'>
-        {socket ? (
-          <>
-            <ThreadMessages messages={messages} />
-          </>)
-          :
-          (<div>Not connected</div>)}
-        <InputMessage socket={socket} />
+          {socket ? (
+            <>
+              <ThreadMessages messages={messages} socket={socket} />
+            </>)
+            :
+            (<div>Not connected</div>)}
+          <InputMessage socket={socket} />
         </div>
       </div>
 
@@ -173,6 +173,10 @@ function App() {
             </>)
             :
             (<div>Not connected</div>)}
+
+        </div>
+
+        <div className='partie-son'>
 
         </div>
 

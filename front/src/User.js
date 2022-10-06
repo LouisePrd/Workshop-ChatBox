@@ -12,7 +12,7 @@ function User({ users }) {
       <div className="users">
       {users.sort((a, b) => a.name - b.name).map((user) => (
         <span key={user.id} className="user">
-          {user.name}<br />
+          {user.name}<br /><br />
         </span>
       ))}
       </div>

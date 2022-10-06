@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const InputMessage = ({ socket }) => {
-    const [value, setValue] = useState("");
+  const [value, setValue] = useState("");
 
   const messageForm = (e) => {
     e.preventDefault();
@@ -11,14 +11,16 @@ const InputMessage = ({ socket }) => {
 
   return (
     <form onSubmit={messageForm}>
-      <input
-        autoFocus
-        value={value}
-        placeholder="Type your message"
-        onChange={(e) => {
-          setValue(e.currentTarget.value);
-        }}
-      />
+      <div className="input-message">
+        <input
+          autoFocus
+          value={value}
+          placeholder="Ecrivez ici..."
+          onChange={(e) => {
+            setValue(e.currentTarget.value);
+          }}
+        />
+      </div>
     </form>
   );
 };

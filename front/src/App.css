@@ -1,10 +1,15 @@
 @font-face {
-	font-family: 'Bold';
-	src: url('') format('ttf');
+	font-family: "Akzidenz-Bold";
+	src: url('./assets/Akzidenz-grotesk-bold.ttf');
 }
 
+@font-face {
+	font-family: "Akzidenz-Black";
+	src: url('./assets/Akzidenz-grotesk-black.ttf');
+}
+
+
 .App {
-  /* text-align: center; */
   background-image: url(assets/background-chatbox.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -59,16 +64,61 @@
 /* Centre */
 .center {
   width: 60%;
-  
+  color: white;
 }
 
 .headerMid {
   background-color: rgb(101, 188, 255, 0.5);
   width: 100%;
-  height: auto;
-  margin-top: 1% ;
+  height: 97%;
+  margin-top: 2% ;
+  border-radius: 10px 10px 10px 10px;
+  font-family: Akzidenz-Black;
 }
 
+.input-message, input {
+  height: 2.5em;
+  border: none;
+  justify-content: center;
+  border-radius: 35px 35px 0px 0px;
+  
+  font-size: 1em;
+  color: white;
+  margin-left: 1%;
+  padding-left: 30px;
+  margin-bottom: 3px;
+}
+
+input {
+  background-color: rgb(101, 188, 255, 0.5);
+  margin-top: 10px;
+  bottom: 0;
+  position: fixed;
+  width: 50%;
+}
+
+.message {
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.message-text {
+  font-family: Akzidenz-Bold;
+  font-size: 1.2em;
+  color: white;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgb(153, 173, 251, 0.5);
+  padding: 10px;
+}
+
+.message-username{
+  margin-bottom: 1em;
+}
+
+/* .thread-messages {
+  bottom: 0;
+  position: fixed;
+} */
 
 
 /* Droite */
@@ -131,14 +181,14 @@
   margin-left: 10%;
 }
 
-.input-name {
+/* .input-name {
   background-color: #439bff;
   color: white;
   border: none;
   font-size: 1em;
   width: 80%;
   font-style: italic;
-}
+} */
 
 .displayName {
   font-size: 1.5em;
@@ -166,7 +216,7 @@
 .icon-user {
   width: 1.8em;
   height: 1.8em;
-  margin-top: 20px;
+
   margin-left: 6px;
   margin-right: 6px;
 }
@@ -176,21 +226,34 @@
   color: white;
 }
 
+.partie-son {
+  width: 60%;
+  margin-top: 6%;
+  padding-top: 3%;
+  margin-left: 10%;
+  background-color: rgb(101, 188, 255, 0.5);
+  border-radius: 100% 100% 0% 0%;
+  height: 13%;
+  justify-content: center;
+}
+
 .test{
   display: flex;
 }
 
 .online {
   font-size: 22px;
+  font-family: "Akzidenz-Bold", Helvetica, Arial, sans-serif;
 }
 
 .user {
   font-size: 18px;
-  margin-left: 11px;
+  margin-left: 13px;
+  font-family: "Akzidenz-Bold", Helvetica, Arial, sans-serif;
 }
 
 .users{
-  height:350px;
+  height:390px;
   overflow:hidden;
   overflow-y:scroll;
 }
