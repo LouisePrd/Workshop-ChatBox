@@ -40,7 +40,7 @@
 .Conteneur {
   display: flex;
   height: 100vh;
-  background: transparent url(./images/bg.png) 0% 0% no-repeat padding-box;
+  background: transparent url(./assets/images/bg.png) 0% 0% no-repeat padding-box;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   background-size: cover;
@@ -92,6 +92,40 @@
   width: 300px;
   padding: 5px;
   text-align: left;
+}
+
+.play {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  border: none;
+  background: transparent linear-gradient(331deg, #4DD9D5 0%, #2C83C6 100%) 0% 0% no-repeat padding-box;
+  box-shadow: inset 2px 2px 5px #306BBF, 0px 3px 6px #00000029;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconPlay {
+  width: auto;
+  height: 20px;
+  margin-left: 5px;
+}
+
+.pause {
+  width: 24px;
+  height: 24px;
+  background: transparent linear-gradient(180deg, #45C5D1 0%, #286FB6 100%) 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border-radius: 50%;
+  border: none;
+}
+
+.iconPause {
+  margin-top: 4px;
+  width: 12px;
+  height: 12px;
 }
 
 .cdContentImg {
