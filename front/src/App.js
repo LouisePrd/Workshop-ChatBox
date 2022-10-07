@@ -17,6 +17,7 @@ import fond1 from './assets/fonds/fond1.jpg';
 import fond2 from './assets/fonds/fond2.jpg';
 import fond3 from './assets/fonds/fond3.jpg';
 import fondVideo from './assets/fonds/gif-fond.gif';
+import loginBg from './assets/fonds/hd0116_preview.mp4';
 
 import './App.css';
 import { io } from 'socket.io-client';
@@ -30,6 +31,7 @@ import axios from 'axios';
 import ProgressBar from './ProgressBar';
 import Playlist from './Playlist';
 import Player from './Player';
+import LoginPage from './LoginPage';
 
 import drake from './assets/tracks/Drake_-_Massive_Official_Audio.mp3';
 import Alice from './assets/tracks/Alice_Deejay_-_Better_Off_Alone_Official_Video.mp3';
@@ -47,11 +49,6 @@ function App() {
   const [spotifyUser, setSpotifyUser] = useState([]);
   const [socket, setSocket] = useState(null);
 
-  const CLIENT_ID = "267dee8acb604afd81a5b1464a34b77a"
-  const REDIRECT_URI = "http://localhost:3000"
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-  const RESPONSE_TYPE = "token"
-
   const [token, setToken] = useState("");
   const [playlist, setPlaylist] = useState([]);
   const [showPlaylist, setShowPlaylist] = useState(false);
@@ -59,6 +56,12 @@ function App() {
   const [showPlaylist3, setShowPlaylist3] = useState(false);
   const [progress, setProgress] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [login, setLogin] = useState(false);
+
+  const CLIENT_ID = "267dee8acb604afd81a5b1464a34b77a"
+  const REDIRECT_URI = "http://localhost:3000"
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  const RESPONSE_TYPE = "token"
 
   const player = useRef(null);
 
@@ -80,6 +83,7 @@ function App() {
     }
 
     setToken(token);
+    console.log(token);
 
     const { data } = axios.get("https://api.spotify.com/v1/playlists/3qY0nnhrbBNsX0tQhdiKH8/tracks", {
       headers: {
@@ -105,10 +109,10 @@ function App() {
       })
   }, []);
 
-
   const logout = () => {
-    setToken("")
-    window.localStorage.removeItem("token")
+    setToken("");
+    window.localStorage.removeItem("token");
+    setLogin(false);
   }
 
   document.body.style.backgroundImage = `url(${background})`;
@@ -186,7 +190,7 @@ function App() {
   ]
 
   const [currentUrl, setCurrentUrl] = useState(null);
-  const [audio] = useState(new Audio(currentUrl));
+  const [audio] = useState(new Audio(drake));
   const [playing, setPlaying] = useState(false);
 
   const childToParent = (childdata) => {
@@ -244,105 +248,112 @@ function App() {
 
   return (
     <div className="App Conteneur">
-      <div className='left'>
-        <div className='cdContainer'>
-          <img className={`cd ${playing ? "App-logo" : ""}`} src={cd} alt="cd" />
-          <button className='play hover' onClick={() => { play() }}><img className='iconPlay' src={iconPlay} /></button>
-          <button className='pause hover' onClick={() => { pause() }}><img className='iconPause' src={iconPause} /></button>
-          <button className='prev hover' onClick={() => { pause() }}><img className='iconPrev' src={iconNext} /></button>
-          <button className='next hover' onClick={() => { pause() }}><img className='iconNext' src={iconNext} /></button>
-          <button className='random hover' onClick={() => { pause() }}><img className='iconRandom' src={iconRandom} /></button>
-          <button className='replay hover' onClick={() => { pause() }}><img className='iconReplay' src={iconReplay} /></button>
-          <div className='cdContent'>
-            {/* <audio id="player" ref={player} src="http://streaming.tdiradio.com:8000/house.mp3" onTimeUpdate={() => {let duration = player.current.duration; let ct = player.current.currentTime; setProgress(Math.floor((ct * 100) / duration))}}></audio> */}
-            <img className='cdContentImg' src={selectedItem ? playlist[0]?.track.album.images[0].url : iconMusic} alt="cd" />
-            <div className='cdContentText'>
-              <p className='cdContentTextp'>{selectedItem ? playlist[0]?.track.name : "- -"}</p>
-              <p className='cdContentTextp'>{selectedItem ? playlist[0]?.track.artists[0].name : "- -"}</p>
-              <ProgressBar completed={progress} />
-            </div>
-          </div>
+      {!token || !spotifyUser ?
+        <div className="LoginContainer">
+          <video autoplay muted loop src={loginBg} className="videoBg" type="video.mp4"></video>
+          <img src={cd} alt="logo" className="cdLogin" />
+          <a className='linkLogin' href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+            <button onClick={() => { logout() }} className="login-button">Login with Spotify</button>
+          </a>
+          {/* <img className="logout-icon" onClick={logout} src={logoutIcon}></img> */}
         </div>
-        <div className='playlistContainer'>
-          <div className='playlistNbutton'>
-            <button className={`playlistButton ${showPlaylist ? "active" : ""}`} onClick={() => { setShowPlaylist(!showPlaylist); setShowPlaylist2(false); setShowPlaylist3(false) }}><img className='icon' src={iconBiblio}/> Playlist</button>
-            {showPlaylist && <Playlist playlist={playlist} childToParent={childToParent} setSelectedItem={setSelectedItem} />}
-          </div>
-          <div className='playlistNbutton'>
-            <button className={`playlistButton ${showPlaylist2 ? "active" : ""}`} onClick={() => { setShowPlaylist2(!showPlaylist2); setShowPlaylist(false); setShowPlaylist3(false) }}><img className='icon' src={iconList}/> Découverte</button>
-            {showPlaylist2 && <Playlist playlist={playlist} childToParent={childToParent} />}
-          </div>
-          <div className='playlistNbutton'>
-            <button className={`playlistButton ${showPlaylist3 ? "active" : ""}`} onClick={() => { setShowPlaylist3(!showPlaylist3); setShowPlaylist(false); setShowPlaylist2(false) }}><img className='icon' src={iconMusic}/> Ma Playlist</button>
-            {showPlaylist3 && <Playlist playlist={playlist} childToParent={childToParent} />}
-          </div>
-        </div>
-        {/* <Player url={"http://streaming.tdiradio.com:8000/house.mp3"} /> */}
-      </div>
-      <div className='center'>
-        <div className='headerMid'>
-          {socket ? (
-            <>
-              <ThreadMessages messages={messages} socket={socket} />
-            </>)
-            :
-            (<div>Not connected</div>)}
-          <InputMessage socket={socket} />
-        </div>
-      </div>
-
-      <div className='right'>
-        <div className='partie-haute'>
-          <div className="small-profile">
-            <div className="profile">
-              <img className="profile-picture" src={spotifyUser.images[0].url} alt="profile" />
-            </div>
-            <div className="profile-name">
-              {<InputName socket={socket} spotifyUser={spotifyUser} />}
-            </div>
-
-          </div>
-          <div className="tools">
-            <div class="dropdown">
-              <img className="settings-icon" onClick={logout} src={settings} />
-              <div class="dropdown-content">
-                {<InputNameForm socket={socket} spotifyUser={spotifyUser} />}
+        :
+        <>
+          <div className='left'>
+            <div className='cdContainer'>
+              <img className={`cd ${playing ? "App-logo" : ""}`} src={cd} alt="cd" />
+              <button className='play hover' onClick={() => { play() }}><img className='iconPlay' src={iconPlay} /></button>
+              <button className='pause hover' onClick={() => { pause() }}><img className='iconPause' src={iconPause} /></button>
+              <button className='prev hover' onClick={() => { pause() }}><img className='iconPrev' src={iconNext} /></button>
+              <button className='next hover' onClick={() => { pause() }}><img className='iconNext' src={iconNext} /></button>
+              <button className='random hover' onClick={() => { pause() }}><img className='iconRandom' src={iconRandom} /></button>
+              <button className='replay hover' onClick={() => { pause() }}><img className='iconReplay' src={iconReplay} /></button>
+              <div className='cdContent'>
+                {/* <audio id="player" ref={player} src="http://streaming.tdiradio.com:8000/house.mp3" onTimeUpdate={() => {let duration = player.current.duration; let ct = player.current.currentTime; setProgress(Math.floor((ct * 100) / duration))}}></audio> */}
+                <img className='cdContentImg' src={selectedItem ? playlist[0]?.track.album.images[0].url : iconMusic} alt="cd" />
+                <div className='cdContentText'>
+                  <p className='cdContentTextp'>{selectedItem ? playlist[0]?.track.name : "- -"}</p>
+                  <p className='cdContentTextp'>{selectedItem ? playlist[0]?.track.artists[0].name : "- -"}</p>
+                  <ProgressBar completed={progress} />
+                </div>
               </div>
             </div>
-
-            <div class="dropdown">
-              <img className="img-icon" src={img} />
-              <div className="dropdown-content">
-                <img className="fond1" onClick={() => changeBackground('fond1')} src={fond1} />
-                <img className="fond2" onClick={() => changeBackground('fond2')} src={fond2} />
-                <img className="fond3" onClick={() => changeBackground('fond3')} src={fond3} />
+            <div className='playlistContainer'>
+              <div className='playlistNbutton'>
+                <button className={`playlistButton ${showPlaylist ? "active" : ""}`} onClick={() => { setShowPlaylist(!showPlaylist); setShowPlaylist2(false); setShowPlaylist3(false) }}><img className='icon' src={iconBiblio} /> Playlist</button>
+                {showPlaylist && <Playlist playlist={playlist} childToParent={childToParent} setSelectedItem={setSelectedItem} />}
+              </div>
+              <div className='playlistNbutton'>
+                <button className={`playlistButton ${showPlaylist2 ? "active" : ""}`} onClick={() => { setShowPlaylist2(!showPlaylist2); setShowPlaylist(false); setShowPlaylist3(false) }}><img className='icon' src={iconList} /> Découverte</button>
+                {showPlaylist2 && <Playlist playlist={playlist} childToParent={childToParent} />}
+              </div>
+              <div className='playlistNbutton'>
+                <button className={`playlistButton ${showPlaylist3 ? "active" : ""}`} onClick={() => { setShowPlaylist3(!showPlaylist3); setShowPlaylist(false); setShowPlaylist2(false) }}><img className='icon' src={iconMusic} /> Ma Playlist</button>
+                {showPlaylist3 && <Playlist playlist={playlist} childToParent={childToParent} />}
               </div>
             </div>
-            {!token ?
-              <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
-                <img className="logout-icon" onClick={logout} src={logoutIcon}></img>
-              </a>
-              : <img className="logout-icon" onClick={logout} src={logoutIcon}></img>}
+            {/* <Player url={"http://streaming.tdiradio.com:8000/house.mp3"} /> */}
+          </div>
+          <div className='center'>
+            <div className='headerMid'>
+              {socket ? (
+                <>
+                  <ThreadMessages messages={messages} socket={socket} />
+                </>)
+                :
+                (<div>Not connected</div>)}
+              <InputMessage socket={socket} />
+            </div>
           </div>
 
-        </div>
+          <div className='right'>
+            <div className='partie-haute'>
+              <div className="small-profile">
+                <div className="profile">
+                  {spotifyUser.images && <img className="profile-picture" src={spotifyUser?.images[0].url} alt="profile" />}
+                </div>
+                <div className="profile-name">
+                  {spotifyUser && <InputName socket={socket} spotifyUser={spotifyUser} />}
+                </div>
 
-        <div className='partie-basse'>
-          {socket ? (
-            <>
-              <User users={users} />
-            </>)
-            :
-            (<div>Not connected</div>)}
+              </div>
+              <div className="tools">
+                <div class="dropdown">
+                  <img className="settings-icon" onClick={logout} src={settings} />
+                  <div class="dropdown-content">
+                    {spotifyUser && <InputNameForm socket={socket} spotifyUser={spotifyUser} />}
+                  </div>
+                </div>
 
-        </div>
+                <div class="dropdown">
+                  <img className="img-icon" src={img} />
+                  <div className="dropdown-content">
+                    <img className="fond1" onClick={() => changeBackground('fond1')} src={fond1} />
+                    <img className="fond2" onClick={() => changeBackground('fond2')} src={fond2} />
+                    <img className="fond3" onClick={() => changeBackground('fond3')} src={fond3} />
+                  </div>
+                </div>
+              </div>
 
-        <div className='partie-son'>
+            </div>
 
-        </div>
+            <div className='partie-basse'>
+              {socket ? (
+                <>
+                  <User users={users} />
+                </>)
+                :
+                (<div>Not connected</div>)}
 
-      </div>
+            </div>
 
+            <div className='partie-son'>
+
+            </div>
+
+          </div>
+        </>
+      }
     </div>
   );
 }
