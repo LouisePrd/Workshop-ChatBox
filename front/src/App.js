@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+
 import settings from './assets/settings.png';
 import img from './assets/img.png';
+import logoutIcon from './assets/logoutImg.png';
+import fond1 from './assets/fonds/fond1.jpg';
+import fond2 from './assets/fonds/fond2.jpg';
+import fond3 from './assets/fonds/fond3.jpg';
+
 import './App.css';
 import { io } from 'socket.io-client';
 
 import User from './User';
 import ThreadMessages from './ThreadMessages';
 import InputName from './InputName';
+import InputNameForm from './InputNameForm';
 import InputMessage from './InputMessage';
 import axios from 'axios';
 
@@ -116,14 +122,6 @@ function App() {
       socket.on('updateUsername', updateUser);
       socket.on('deleteUser', deleteUser);
       socket.emit('getUsers');
-
-      // return () => {
-      //   socket.off("messages", getMessages);
-      //   socket.off("users", getUsers);
-      //   socket.off("userConnection", getNewUser);
-      //   socket.off("updateUsername", updateUser);
-      //   socket.off("deleteUser", deleteUser);
-      // };
     }
   }, [socket]);
 
@@ -148,20 +146,34 @@ function App() {
         <div className='partie-haute'>
           <div className="small-profile">
             <div className="profile">
-              {/* <img className="profile-picture" src={spotifyUser.images[0].url} alt="profile" /> */}
+              <img className="profile-picture" src={spotifyUser.images[0].url} alt="profile" />
             </div>
             <div className="profile-name">
-              {/* <InputName socket={socket} spotifyUser={spotifyUser} /> */}
-              {!token ?
-                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-                  to Spotify</a>
-                : <button onClick={logout}>Logout</button>}
+              {<InputName socket={socket} spotifyUser={spotifyUser} />}
             </div>
 
           </div>
           <div className="tools">
-            <img className="settings-icon" src={settings} />
-            <img className="img-icon" src={img} />
+            <div class="dropdown">
+              <img className="settings-icon" onClick={logout} src={settings} />
+              <div class="dropdown-content">
+                {<InputNameForm socket={socket} spotifyUser={spotifyUser} />}
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <img className="img-icon" src={img} />
+              <div class="dropdown-content">
+                <img className="fond1" src={fond1} />
+                <img className="fond2" src={fond2} />
+                <img className="fond3" src={fond3} />
+              </div>
+            </div>
+            {!token ?
+              <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+                <img className="logout-icon" onClick={logout} src={logoutIcon}></img>
+              </a>
+              : <img className="logout-icon" onClick={logout} ></img>}
           </div>
 
         </div>
