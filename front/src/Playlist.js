@@ -9,7 +9,7 @@ const Playlist = ({ playlist, setSelectedItem, childToParent }) => {
     return (
         <div className='playlist'>
                 {playlist.map((item, index) => (
-                  <div className='playlistItem' key={index} onClick={() => {childToParent(item.track.id)}}>
+                  <div className='playlistItem' key={index} onClick={() => {childToParent(item.track.id, index)}}>
                     <img className='playlistItemImg' src={item.track.album.images[0].url} alt="cd" />
                     <div className='playlistItemText'>
                       <p className='playlistItemTextp'>{item.track.name}</p>

@@ -2,6 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import cd from './assets/images/cd.png';
 import iconPlay from './assets/images/play.png';
 import iconPause from './assets/images/stop.png';
+import iconMusic from './assets/images/music.png';
+import iconNext from './assets/images/next.png';
+import iconRandom from './assets/images/random.png';
+import iconReplay from './assets/images/replay.png';
+import iconBiblio from './assets/images/biblio.png';
+import iconList from './assets/images/liste.png';
 import './App.css';
 import { io } from 'socket.io-client';
 
@@ -157,8 +163,14 @@ function App() {
   ]
 
   const [currentUrl, setCurrentUrl] = useState(null);
-  const [audio] = useState(new Audio(drake));
+  const [audio] = useState(new Audio(currentUrl));
   const [playing, setPlaying] = useState(false);
+
+  const childToParent = (childdata) => {
+    setSelectedItem(childdata);
+    console.log(childdata);
+    console.log(selectedItem);
+  }
 
   const play = () => {
     setPlaying(true);
@@ -171,22 +183,17 @@ function App() {
     audio.pause();
   }
 
-  const childToParent = (childdata) => {
-    setSelectedItem(childdata);
-    console.log(childdata);
-    console.log(selectedItem);
-  }
-
   useEffect(() => {
 
     if (selectedItem) {
       console.log(selectedItem);
       if (selectedItem === "0oiv4E896TUTTeQU0cmIui") {
         setCurrentUrl(drake);
+        console.log(drake);
         console.log(currentUrl);
         play();
       } else if (selectedItem === "5XVjNRubJUW0iPhhSWpLCj") {
-        setCurrentUrl(tracks[1].url);
+        setCurrentUrl(Alice);
         console.log(currentUrl);
         play();
       } else if (selectedItem === "2goLsvvODILDzeeiT4dAoR") {
@@ -201,7 +208,7 @@ function App() {
       } else if (selectedItem === "5aEqcblO0Z6JloFJXtxyhe") {
         setCurrentUrl(tracks[5].url);
         console.log(currentUrl);
-      } else if (selectedItem === "3u5N55tHf7hXATSQrjBh2q") { 
+      } else if (selectedItem === "3u5N55tHf7hXATSQrjBh2q") {
         setCurrentUrl(tracks[6].url);
         console.log(currentUrl);
       } else if (selectedItem === "7voHUmPNDuYZ1SW1mwRu26") {
@@ -209,41 +216,45 @@ function App() {
         console.log(currentUrl);
       }
     }
-  }, [selectedItem, currentUrl]);
+  }, [selectedItem]);
 
 
   return (
     <div className="App Conteneur">
       <div className='left'>
         <div className='cdContainer'>
-          <img  className={`cd ${playing ? "App-logo" : ""}`} src={cd} alt="cd" />
+          <img className={`cd ${playing ? "App-logo" : ""}`} src={cd} alt="cd" />
+          <button className='play hover' onClick={() => { play() }}><img className='iconPlay' src={iconPlay} /></button>
+          <button className='pause hover' onClick={() => { pause() }}><img className='iconPause' src={iconPause} /></button>
+          <button className='prev hover' onClick={() => { pause() }}><img className='iconPrev' src={iconNext} /></button>
+          <button className='next hover' onClick={() => { pause() }}><img className='iconNext' src={iconNext} /></button>
+          <button className='random hover' onClick={() => { pause() }}><img className='iconRandom' src={iconRandom} /></button>
+          <button className='replay hover' onClick={() => { pause() }}><img className='iconReplay' src={iconReplay} /></button>
           <div className='cdContent'>
-          <audio id="player" ref={player} src="http://streaming.tdiradio.com:8000/house.mp3" onTimeUpdate={() => {let duration = player.current.duration; let ct = player.current.currentTime; setProgress(Math.floor((ct * 100) / duration))}}></audio>
-            <img className='cdContentImg' src={playlist[0] ? playlist[0].track.album.images[0].url : ""} alt="cd" />
+            {/* <audio id="player" ref={player} src="http://streaming.tdiradio.com:8000/house.mp3" onTimeUpdate={() => {let duration = player.current.duration; let ct = player.current.currentTime; setProgress(Math.floor((ct * 100) / duration))}}></audio> */}
+            <img className='cdContentImg' src={selectedItem ? playlist[0]?.track.album.images[0].url : iconMusic} alt="cd" />
             <div className='cdContentText'>
-              <p className='cdContentTextp'>{playlist[0] ? playlist[0].track.name : ""}</p>
-              <p className='cdContentTextp'>{playlist[0] ? playlist[0].track.artists[0].name : ""}</p>
+              <p className='cdContentTextp'>{selectedItem ? playlist[0]?.track.name : "- -"}</p>
+              <p className='cdContentTextp'>{selectedItem ? playlist[0]?.track.artists[0].name : "- -"}</p>
               <ProgressBar completed={progress} />
             </div>
           </div>
         </div>
         <div className='playlistContainer'>
           <div className='playlistNbutton'>
-            <button className={`playlistButton ${showPlaylist ? "active" : ""}`} onClick={() => { setShowPlaylist(!showPlaylist); setShowPlaylist2(false); setShowPlaylist3(false) }}>Playlist</button>
-            {showPlaylist && <Playlist playlist={playlist} childToParent={childToParent} setSelectedItem={setSelectedItem}/>}
+            <button className={`playlistButton ${showPlaylist ? "active" : ""}`} onClick={() => { setShowPlaylist(!showPlaylist); setShowPlaylist2(false); setShowPlaylist3(false) }}><img className='icon' src={iconBiblio}/> Playlist</button>
+            {showPlaylist && <Playlist playlist={playlist} childToParent={childToParent} setSelectedItem={setSelectedItem} />}
           </div>
           <div className='playlistNbutton'>
-            <button className={`playlistButton ${showPlaylist2 ? "active" : ""}`} onClick={() => { setShowPlaylist2(!showPlaylist2); setShowPlaylist(false); setShowPlaylist3(false) }}>Découverte</button>
-            {showPlaylist2 && <Playlist playlist={playlist} childToParent={childToParent}/>}
+            <button className={`playlistButton ${showPlaylist2 ? "active" : ""}`} onClick={() => { setShowPlaylist2(!showPlaylist2); setShowPlaylist(false); setShowPlaylist3(false) }}><img className='icon' src={iconList}/> Découverte</button>
+            {showPlaylist2 && <Playlist playlist={playlist} childToParent={childToParent} />}
           </div>
           <div className='playlistNbutton'>
-            <button className={`playlistButton ${showPlaylist3 ? "active" : ""}`} onClick={() => { setShowPlaylist3(!showPlaylist3); setShowPlaylist(false); setShowPlaylist2(false) }}>Ma Playlist</button>
-            {showPlaylist3 && <Playlist playlist={playlist} childToParent={childToParent}/>}
+            <button className={`playlistButton ${showPlaylist3 ? "active" : ""}`} onClick={() => { setShowPlaylist3(!showPlaylist3); setShowPlaylist(false); setShowPlaylist2(false) }}><img className='icon' src={iconMusic}/> Ma Playlist</button>
+            {showPlaylist3 && <Playlist playlist={playlist} childToParent={childToParent} />}
           </div>
         </div>
         {/* <Player url={"http://streaming.tdiradio.com:8000/house.mp3"} /> */}
-        <button className='play' onClick={() => {play()}}><img className='iconPlay' src={iconPlay}/></button>
-        <button className='pause' onClick={() => {pause()}}><img className='iconPause' src={iconPause}/></button>
       </div>
       <div className='center'>
         {socket ? (
