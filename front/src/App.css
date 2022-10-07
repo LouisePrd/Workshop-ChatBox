@@ -316,12 +316,230 @@
   transition: ease-in-out 0.2s;
 }
 
-.center {
-  width: 60%;
-  /* background-color: #a42626; */
-}
-
 .right {
   width: 20%;
   /* background-color: #bf3dad; */
+}
+
+/* Centre */
+.center {
+  width: 60%;
+  color: white;
+}
+
+.headerMid {
+  background-color: rgb(101, 188, 255, 0.5);
+  width: 100%;
+  height: 97%;
+  margin-top: 2%;
+  border-radius: 10px 10px 10px 10px;
+  font-family: Akzidenz-Black;
+}
+
+.input-message {
+  height: 2.5em;
+  border: none;
+  border-radius: 35px 35px 0px 0px;
+  font-size: 1.2em;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  margin-left: 4%;
+  padding-left: 30px;
+  background-color: rgb(101, 188, 255, 0.5);
+  bottom: 0;
+  position: fixed;
+  width: 50%;
+  font-family: Akzidenz-Black;
+}
+
+.message {
+  margin-left: 6px;
+  margin-top: 1em;
+  padding-left: 10px;
+  display: flex;
+}
+
+.message-text {
+  font-family: Akzidenz-Bold;
+  font-size: 1.2em;
+  color: white;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgb(153, 173, 251, 0.5);
+  overflow-wrap: break-word;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left: 1em;
+  padding-right: 1em;
+  display: inline-block;
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 38.5em;
+}
+
+.message-content {
+  margin-left: 10px;
+}
+
+.thread-messages {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 90%;
+}
+
+
+/* Droite */
+
+.small-profile {
+  width: 80%;
+  padding-bottom: 3%;
+  margin-right: 10%;
+  margin-left: 6%;
+  border-radius: 10px 45px 45px 0px;
+  display: flex;
+}
+
+.profile-name {
+  margin-left: 6%;
+  font-family: "Akzidenz-Bold", Helvetica, Arial, sans-serif;
+}
+
+.partie-haute {
+  width: 80%;
+  margin-top: 6%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin-right: 10%;
+  margin-left: 10%;
+  background-color: rgb(101, 188, 255, 0.5);
+  border-radius: 10px 45px 45px 0px;
+}
+
+.profile-picture {
+  width: 5.4em;
+  border-radius: 50%;
+}
+
+.user-list {
+  background-color: rgb(101, 188, 255, 0.5);
+  margin-right: 10%;
+  margin-left: 10%;
+  border-radius: 0px 45px 45px 45px;
+}
+
+.input-name {
+  background-color: rgb(101, 188, 255, 0.5);
+  color: white;
+  border: none;
+  font-size: 1em;
+  width: 110%;
+  font-style: italic;
+}
+
+.displayName {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
+
+.settings-icon {
+  border-radius: 48%;
+  background-color: #65bcff;
+  width: 2.4em;
+  margin-left: 0.4em;
+}
+
+.img-icon,
+.logout-icon {
+  border-radius: 50%;
+  background-color: #65bcff;
+  width: 2.8em;
+  margin-left: 0.35em;
+}
+
+.fond1{
+  padding-left: 4px;
+}
+
+.fond1,.fond2,
+.fond3 {
+  width : 3em;
+  border-radius: 50%;
+  margin-left: 0.15em;
+}
+
+.tools {
+  margin-left: 3%;
+}
+
+.icon-user {
+  width: 1.8em;
+  height: 1.8em;
+  margin-top: 1em;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+}
+
+.partie-basse {
+  margin-top: 6%;
+  color: white;
+}
+
+.partie-son {
+  width: 60%;
+  margin-top: 6%;
+  padding-top: 21%;
+  margin-left: 20%;
+  background-color: rgb(101, 188, 255, 0.5);
+  border-radius: 100% 100% 0% 0%;
+  height: 0.3%;
+  justify-content: center;
+}
+
+.test {
+  display: flex;
+  margin-bottom: -0.1em;
+}
+
+.online {
+  font-size: 22px;
+  font-family: "Akzidenz-Bold", Helvetica, Arial, sans-serif;
+}
+
+.user {
+  font-size: 18px;
+  margin-left: 0.9em;
+  font-family: "Akzidenz-Bold", Helvetica, Arial, sans-serif;
+}
+
+.users {
+  height: 390px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+
+/* dropdown settings */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgb(101, 188, 255, 0.5);
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.profile-random {
+  max-width: 50px;
+  border-radius: 50%;
+  margin-top: 0.9em;
 }
