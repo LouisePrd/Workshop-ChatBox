@@ -117,8 +117,8 @@ function App() {
 
   function changeBackground(choix) {
     if (choix = "fond1") {
-      alert("fond1");
-      document.body.style.backgroundImage = `url(${fondVideo})`;
+      // document.body.style.backgroundImage = `url(${fondVideo})`;
+      document.body.style.backgroundImage = `url('./assets/fonds/fond1.jpg')`;
       document.body.style.backgroundRepeat = "no-repeat";
       document.body.style.backgroundSize = "cover";
       document.body.style.backgroundAttachment = "fixed";
