@@ -8,12 +8,23 @@ import iconRandom from './assets/images/random.png';
 import iconReplay from './assets/images/replay.png';
 import iconBiblio from './assets/images/biblio.png';
 import iconList from './assets/images/liste.png';
+
+import settings from './assets/settings.png';
+import img from './assets/img.png';
+import logoutIcon from './assets/logoutImg.png';
+import background from './assets/background-chatbox.png';
+import fond1 from './assets/fonds/fond1.jpg';
+import fond2 from './assets/fonds/fond2.jpg';
+import fond3 from './assets/fonds/fond3.jpg';
+import fondVideo from './assets/fonds/gif-fond.gif';
+
 import './App.css';
 import { io } from 'socket.io-client';
 
 import User from './User';
 import ThreadMessages from './ThreadMessages';
 import InputName from './InputName';
+import InputNameForm from './InputNameForm';
 import InputMessage from './InputMessage';
 import axios from 'axios';
 import ProgressBar from './ProgressBar';
@@ -100,6 +111,26 @@ function App() {
     window.localStorage.removeItem("token")
   }
 
+  document.body.style.backgroundImage = `url(${background})`;
+  document.body.style.backgroundRepeat = "no-repeat";
+  document.body.style.backgroundSize = "cover";
+
+  function changeBackground(choix) {
+    if (choix = "fond1") {
+      alert("fond1");
+      document.body.style.backgroundImage = `url(${fondVideo})`;
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundAttachment = "fixed";
+    } else if (choix = "fond2") {
+      // document.body.style.backgroundImage = `url(${fond2})`;
+      alert("fond2");
+    } else if (choix = "fond3") {
+      // document.body.style.backgroundImage = `url(${fond3})`;
+      alert("fond3");
+    }
+  }
+
   useEffect(() => {
     if (socket) {
       const getMessages = (messages) => {
@@ -140,14 +171,6 @@ function App() {
       socket.on('updateUsername', updateUser);
       socket.on('deleteUser', deleteUser);
       socket.emit('getUsers');
-
-      // return () => {
-      //   socket.off("messages", getMessages);
-      //   socket.off("users", getUsers);
-      //   socket.off("userConnection", getNewUser);
-      //   socket.off("updateUsername", updateUser);
-      //   socket.off("deleteUser", deleteUser);
-      // };
     }
   }, [socket]);
 
@@ -257,29 +280,68 @@ function App() {
         {/* <Player url={"http://streaming.tdiradio.com:8000/house.mp3"} /> */}
       </div>
       <div className='center'>
-        {socket ? (
-          <>
-            <ThreadMessages messages={messages} />
-          </>)
-          :
-          (<div>Not connected</div>)}
-        <InputMessage socket={socket} />
+        <div className='headerMid'>
+          {socket ? (
+            <>
+              <ThreadMessages messages={messages} socket={socket} />
+            </>)
+            :
+            (<div>Not connected</div>)}
+          <InputMessage socket={socket} />
+        </div>
       </div>
+
       <div className='right'>
-        <InputName socket={socket} spotifyUser={spotifyUser} />
-        {socket ? (
-          <>
-            <User users={users} />
-          </>)
-          :
-          (<div>Not connected</div>)}
+        <div className='partie-haute'>
+          <div className="small-profile">
+            <div className="profile">
+              <img className="profile-picture" src={spotifyUser.images[0].url} alt="profile" />
+            </div>
+            <div className="profile-name">
+              {<InputName socket={socket} spotifyUser={spotifyUser} />}
+            </div>
+
+          </div>
+          <div className="tools">
+            <div class="dropdown">
+              <img className="settings-icon" onClick={logout} src={settings} />
+              <div class="dropdown-content">
+                {<InputNameForm socket={socket} spotifyUser={spotifyUser} />}
+              </div>
+            </div>
+
+            <div class="dropdown">
+              <img className="img-icon" src={img} />
+              <div className="dropdown-content">
+                <img className="fond1" onClick={() => changeBackground('fond1')} src={fond1} />
+                <img className="fond2" onClick={() => changeBackground('fond2')} src={fond2} />
+                <img className="fond3" onClick={() => changeBackground('fond3')} src={fond3} />
+              </div>
+            </div>
+            {!token ?
+              <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+                <img className="logout-icon" onClick={logout} src={logoutIcon}></img>
+              </a>
+              : <img className="logout-icon" onClick={logout} src={logoutIcon}></img>}
+          </div>
+
+        </div>
+
+        <div className='partie-basse'>
+          {socket ? (
+            <>
+              <User users={users} />
+            </>)
+            :
+            (<div>Not connected</div>)}
+
+        </div>
+
+        <div className='partie-son'>
+
+        </div>
+
       </div>
-
-
-      {/* {!token ?
-        <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-          to Spotify</a>
-        : <button onClick={logout}>Logout</button>} */}
 
     </div>
   );

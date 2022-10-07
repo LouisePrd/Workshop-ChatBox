@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const InputName = ({ socket, spotifyUser }) => {
+const InputNameForm = ({ socket, spotifyUser }) => {
     const [value, setValue] = useState("");
     const [isName, setIsName] = useState(spotifyUser?.display_name);
 
@@ -13,7 +13,6 @@ const InputName = ({ socket, spotifyUser }) => {
 
     return (
         <>
-        <span className="displayName"><b></b>{isName}</span>
         <form onSubmit={usernameForm}>
           <input className="input-name"
             autoFocus
@@ -28,4 +27,4 @@ const InputName = ({ socket, spotifyUser }) => {
       );
 };
 
-export default InputName;
+export default InputNameForm;
