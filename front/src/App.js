@@ -298,7 +298,7 @@ function App() {
             <div className='headerMid'>
               {socket ? (
                 <>
-                  <ThreadMessages messages={messages} socket={socket} />
+                  <ThreadMessages messages={messages} socket={socket} spotifyUser={spotifyUser} />
                 </>)
                 :
                 (<div>Not connected</div>)}
@@ -349,10 +349,7 @@ function App() {
                 </>)
                 :
                 (<div>Not connected</div>)}
-
-            </div>
-
-            <div className='partie-son'>
+                
 
             </div>
 
