@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import settings from './assets/settings.png';
 import img from './assets/img.png';
 import logoutIcon from './assets/logoutImg.png';
+import background from './assets/background-chatbox.png';
 import fond1 from './assets/fonds/fond1.jpg';
 import fond2 from './assets/fonds/fond2.jpg';
 import fond3 from './assets/fonds/fond3.jpg';
@@ -80,6 +81,21 @@ function App() {
   const logout = () => {
     setToken("")
     window.localStorage.removeItem("token")
+  }
+
+  document.body.style.backgroundImage = `url(${background})`;
+
+  function changeBackground(choix){
+    if (choix = "fond1") {
+      alert("fond1");
+      document.body.style.backgroundImage = `url(${fond1})`;
+    } else if (choix = "fond2") {
+      // document.body.style.backgroundImage = `url(${fond2})`;
+      alert("fond2");
+    } else if (choix = "fond3") {
+      // document.body.style.backgroundImage = `url(${fond3})`;
+      alert("fond3");
+    }
   }
 
   useEffect(() => {
@@ -164,9 +180,9 @@ function App() {
             <div class="dropdown">
               <img className="img-icon" src={img} />
               <div class="dropdown-content">
-                <img className="fond1" src={fond1} />
-                <img className="fond2" src={fond2} />
-                <img className="fond3" src={fond3} />
+                <img className="fond1" onClick={() => changeBackground('fond1')} src={fond1} />
+                <img className="fond2" onClick={() => changeBackground('fond2')} src={fond2} />
+                <img className="fond3" onClick={() =>changeBackground('fond3')} src={fond3} />
               </div>
             </div>
             {!token ?
