@@ -1,6 +1,12 @@
-.App {
-  text-align: center;
-}
+@font-face {
+  font-family: "Akzidenz-Bold";
+  src: url("./assets/fonts/Akzidenz-grotesk-bold.ttf") format("ttf");
+ }
+
+ @font-face {
+  font-family: "Akzidenz-Black";
+  src: url("./assets/fonts/Akzidenz-grotesk-black.ttf") format("ttf");
+ }
 
 .App-logo {
   height: 40vmin;
@@ -333,7 +339,7 @@
   height: 97%;
   margin-top: 2%;
   border-radius: 10px 10px 10px 10px;
-  font-family: Akzidenz-Black;
+  font-family: "Akzidenz-Black", Helvetica, Arial, sans-serif;;
 }
 
 .input-message {
@@ -350,7 +356,7 @@
   bottom: 0;
   position: fixed;
   width: 50%;
-  font-family: Akzidenz-Black;
+  font-family: "Akzidenz-Black", Helvetica, Arial, sans-serif;;
 }
 
 .message {
@@ -361,7 +367,7 @@
 }
 
 .message-text {
-  font-family: Akzidenz-Bold;
+  font-family: "Akzidenz-Bold", Helvetica, Arial, sans-serif;;
   font-size: 1.2em;
   color: white;
   border-radius: 10px 10px 10px 10px;
@@ -541,5 +547,5 @@
 .profile-random {
   max-width: 50px;
   border-radius: 50%;
-  margin-top: 0.9em;
+  margin-top: 0.7em;
 }

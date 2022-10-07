@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import fond1 from './assets/fonds/fond1.jpg';
 import fond2 from './assets/fonds/fond2.jpg';
 import fond3 from './assets/fonds/fond3.jpg';
+import defaultImg from './assets/images/default.jpg';
 
 function ThreadMessages({messages}) {
   
@@ -19,7 +20,7 @@ function ThreadMessages({messages}) {
           
         <div key={message.id} className="message">
           <div>
-            <img className="profile-random" src={randomImg()} alt="profile" />
+            <img className="profile-random" src={defaultImg} alt="profile" />
           </div>
           <div className="message-content">
             <div className="message-username">{message.user.name} : </div>
