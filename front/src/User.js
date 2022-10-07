@@ -3,6 +3,8 @@ import iconUser from "./assets/icon-user.png";
 
 function User({ users }) {
 
+  console.log(users);
+
   return (
     <div className="user-list">
       <div className="test">
@@ -10,7 +12,7 @@ function User({ users }) {
         <h2 className="online">ONLINE</h2>
       </div>
       <div className="users">
-      {users.sort((a, b) => a.name - b.name).map((user) => (
+      {users.filter(user => user.name !== "Anonymous").sort((a, b) => a.name - b.name).map((user) => (
         <span key={user.id} className="user">
           {user.name}<br /><br />
         </span>
