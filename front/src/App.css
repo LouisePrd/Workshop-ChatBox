@@ -13,6 +13,7 @@
   /* background-image: url(assets/background-chatbox.png); */
   background-repeat: no-repeat;
   background-size: cover;
+  backdrop-filter: blur(30px);
 }
 
 .App-logo {
@@ -81,11 +82,11 @@
   height: 2.5em;
   border: none;
   border-radius: 35px 35px 0px 0px;
-  font-size: 1em;
+  font-size: 1.2em;
   color: white;
   margin-top: 10px;
   margin-bottom: 3px;
-  margin-left: 1%;
+  margin-left: 4%;
   padding-left: 30px;
   background-color: rgb(101, 188, 255, 0.5);
   bottom: 0;
@@ -95,9 +96,10 @@
 }
 
 .message {
-  margin-bottom: 18px;
-  margin-left: 15px;
-  margin-top: 18px;
+  margin-left: 6px;
+  margin-top: 1em;
+  padding-left: 10px;
+  display: flex;
 }
 
 .message-text {
@@ -106,12 +108,19 @@
   color: white;
   border-radius: 10px 10px 10px 10px;
   background-color: rgb(153, 173, 251, 0.5);
-  padding: 10px;
   overflow-wrap: break-word;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left: 1em;
+  padding-right: 1em;
+  display: inline-block;
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 38.5em;
 }
 
-.message-username {
-  margin-bottom: 1em;
+.message-content {
+  margin-left: 10px;
 }
 
 .thread-messages {
@@ -165,7 +174,7 @@
 }
 
 .input-name {
-  background-color: #439bff;
+  background-color: rgb(101, 188, 255, 0.5);
   color: white;
   border: none;
   font-size: 1em;
@@ -182,7 +191,7 @@
 .settings-icon {
   border-radius: 48%;
   background-color: #65bcff;
-  width: 2.3em;
+  width: 2.4em;
   margin-left: 0.4em;
 }
 
@@ -191,24 +200,18 @@
   border-radius: 50%;
   background-color: #65bcff;
   width: 2.8em;
-  margin-left: 0.15em;
+  margin-left: 0.35em;
 }
 
+.fond1{
+  padding-left: 4px;
+}
 
-.fond2,
+.fond1,.fond2,
 .fond3 {
-  border-radius: 50%;
-  background-color: #65bcff;
-  width: 3.3em;
-  height: 2em;
-  margin-left: 0.15em;
-}
-
-.fond1 {
-  width : 2.9em;
+  width : 3em;
   border-radius: 50%;
   margin-left: 0.15em;
-  background-color: #65bcff;
 }
 
 .tools {
@@ -279,4 +282,10 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.profile-random {
+  max-width: 50px;
+  border-radius: 50%;
+  margin-top: 0.9em;
 }

@@ -7,6 +7,7 @@ import background from './assets/background-chatbox.png';
 import fond1 from './assets/fonds/fond1.jpg';
 import fond2 from './assets/fonds/fond2.jpg';
 import fond3 from './assets/fonds/fond3.jpg';
+import fondVideo from './assets/fonds/gif-fond.gif';
 
 import './App.css';
 import { io } from 'socket.io-client';
@@ -84,11 +85,16 @@ function App() {
   }
 
   document.body.style.backgroundImage = `url(${background})`;
+  document.body.style.backgroundRepeat = "no-repeat";
+  document.body.style.backgroundSize = "cover";
 
-  function changeBackground(choix){
+  function changeBackground(choix) {
     if (choix = "fond1") {
       alert("fond1");
-      document.body.style.backgroundImage = `url(${fond1})`;
+      document.body.style.backgroundImage = `url(${fondVideo})`;
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundAttachment = "fixed";
     } else if (choix = "fond2") {
       // document.body.style.backgroundImage = `url(${fond2})`;
       alert("fond2");
@@ -179,17 +185,17 @@ function App() {
 
             <div class="dropdown">
               <img className="img-icon" src={img} />
-              <div class="dropdown-content">
+              <div className="dropdown-content">
                 <img className="fond1" onClick={() => changeBackground('fond1')} src={fond1} />
                 <img className="fond2" onClick={() => changeBackground('fond2')} src={fond2} />
-                <img className="fond3" onClick={() =>changeBackground('fond3')} src={fond3} />
+                <img className="fond3" onClick={() => changeBackground('fond3')} src={fond3} />
               </div>
             </div>
             {!token ?
               <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
                 <img className="logout-icon" onClick={logout} src={logoutIcon}></img>
               </a>
-              : <img className="logout-icon" onClick={logout} ></img>}
+              : <img className="logout-icon" onClick={logout} src={logoutIcon}></img>}
           </div>
 
         </div>
