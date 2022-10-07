@@ -319,7 +319,7 @@ function App() {
               </div>
               <div className="tools">
                 <div class="dropdown">
-                  <img className="settings-icon" onClick={logout} src={settings} />
+                  <img className="settings-icon" src={settings} />
                   <div class="dropdown-content">
                     {spotifyUser && <InputNameForm socket={socket} spotifyUser={spotifyUser} />}
                   </div>

@@ -412,10 +412,7 @@
 }
 
 .message {
-  margin-left: 6px;
-  margin-top: 0.8em;
-  padding-left: 10px;
-  display: flex;
+
 }
 
 .message-text {
@@ -511,7 +508,7 @@
 .logout-icon {
   border-radius: 50%;
   background-color: #65bcff;
-  width: 2.8em;
+  width: 3.1em;
   margin-left: 0.35em;
 }
 
@@ -543,7 +540,7 @@
   color: white;
 }
 
-.partie-son {
+/* .partie-son {
   width: 60%;
   margin-top: 6%;
   padding-top: 21%;
@@ -552,7 +549,7 @@
   border-radius: 100% 100% 0% 0%;
   height: 0.3%;
   justify-content: center;
-}
+} */
 
 .test {
   display: flex;
@@ -600,4 +597,20 @@
   max-width: 50px;
   border-radius: 50%;
   margin-top: 0.7em;
+}
+
+.message-other {
+  margin-left: 0.4em;
+  margin-top: 0.8em;
+  padding-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-me {
+  margin-right: 0.4em;
+  margin-top: 0.9em;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
 }
