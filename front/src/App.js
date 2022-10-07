@@ -333,6 +333,11 @@ function App() {
                     <img className="fond3" onClick={() => changeBackground('fond3')} src={fond3} />
                   </div>
                 </div>
+                {!token ?
+              <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>
+                <img className="logout-icon" onClick={logout} src={logoutIcon}></img>
+              </a>
+              : <img className="logout-icon" onClick={logout} src={logoutIcon}></img>}
               </div>
 
             </div>
