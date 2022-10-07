@@ -147,13 +147,13 @@ function App() {
 
       const getNewUser = (user) => {
         setUsers(prevUsers => {
-          return [...prevUsers, user];
+          return [...prevUsers, spotifyUser];
         });
       };
 
       const updateUser = (user) => {
         setUsers(prevUsers => {
-          prevUsers[user.id] = user;
+          prevUsers[user.id] = spotifyUser;
           return prevUsers;
         });
       };
