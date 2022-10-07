@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { Socket } from "socket.io-client";
 import defaultImg from './assets/images/default.jpg';
 
 
 
-function ThreadMessages({ messages }) {
-  var classType = "message";
-
-  const renderElement = (idUser, idUserMessage) => {
-    if (idUser === idUserMessage) {
-      classType = 'message-user';
-    } else {
-      classType = 'message-other';
-    }
-  };
-
+function ThreadMessages({ messages,  socket }) {
     return (
       <div className="thread-messages">
         {messages
           .sort((a, b) => a.time - b.time)
           .slice(messages.length - 8, messages.length)
           .map((message) => (
-            <div key={message.id} class="message" className={renderElement(message.user.id, message.id)}>
+            <div key={message.id} className={`message ${message.user.id == socket.id ? "message-me" : "message-other"}`}>
               <div>
                 <img className="profile-random" src={defaultImg} alt="profile" />
               </div>
